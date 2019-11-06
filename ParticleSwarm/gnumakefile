@@ -1,0 +1,17 @@
+SRC_DIR := src
+OBJ_DIR := obj
+INC_DIR := include
+SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
+OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
+#CPPFLAGS := ...
+
+all: ExampleSwarm
+
+ExampleSwarm: $(OBJ_FILES)
+	g++ -std=c++11 -o $@ $^ -I $(INC_DIR)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	g++ -std=c++11 $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $< -I $(INC_DIR)
+
+clean:
+	rm obj/* ExampleSwarm *.csv

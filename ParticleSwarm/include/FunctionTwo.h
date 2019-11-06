@@ -4,6 +4,7 @@
 #if defined _WIN64 || defined _WIN32
 #include "minmax.h"
 #endif
+#include <cmath>
 
 /**
 * @class FunctionTwo
@@ -14,7 +15,7 @@ class FunctionTwo : public Problem {
 public:
 
 	double Q(std::pair<double, double> &p) {
-		return 9.0 * max(0.0, 10 - pow(pdist(p), 2)) + 
+		return 9.0 * std::max(0.0, 10 - pow(pdist(p), 2)) + 
 			10 * (1 - (pdist(p) / mdist())) + 70 * (1 - (ndist(p) / mdist()));
 	}
 
