@@ -3,6 +3,7 @@
 #include "Problem.h"
 #include <cmath>
 #include <algorithm>
+
 /**
 * @class FunctionTwo
 * @brief This inherits from the Problem interface to define a sample problem.

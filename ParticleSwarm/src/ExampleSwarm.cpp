@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
 	int epoch = 0;
 	
 	/*Either the error converges or we complete all epochs*/
-	while ((PSO.error_x > 0.01 && PSO.error_y > 0.01) && (epoch < PSO.epochs)) {
+	while ((PSO.data.error_x > 0.01 && PSO.data.error_y > 0.01) && (epoch < PSO.data.epochs)) {
 
 		/*Update positions, velocities, bestPosition and g_best*/
 		PSO.update_loop();
@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
 		PSO.avg_error();
 
 		if (DEBUG)
-			printf("Error x: %f y: %f\n", PSO.error_x, PSO.error_y);
+			printf("Error x: %f y: %f\n", PSO.data.error_x, PSO.data.error_y);
 
 		pair <double, double> result = PSO.avg_coord_best_coord();
 		
@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
 		fout.close();
 	}*/
 
-	printf("Error x: %f y: %f\nBest index fitness: %d %f\nBest Position: %f %f\n", PSO.error_x, PSO.error_y, PSO.best_index, PSO.prob->Q(PSO.g_best), PSO.g_best.first, PSO.g_best.second);
+	printf("Error x: %f y: %f\nBest index fitness: %d %f\nBest Position: %f %f\n", PSO.data.error_x, PSO.data.error_y, PSO.data.best_index, PSO.prob->Q(PSO.g_best), PSO.g_best.first, PSO.g_best.second);
 
 	return 0;
 }

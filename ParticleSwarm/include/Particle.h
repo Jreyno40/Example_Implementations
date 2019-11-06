@@ -48,10 +48,11 @@ class Particle {
 public:
 
 	Particle(ParticleData data);
-	void position_update();
-	void velocity_update(std::pair <double, double> g_best);
 
 protected:
+
+	void position_update();
+	void velocity_update(std::pair <double, double> g_best);
 
 	friend class ParticleSwarmOptimizer;
 };

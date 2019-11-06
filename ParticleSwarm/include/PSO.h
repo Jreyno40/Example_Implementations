@@ -8,6 +8,18 @@ class Problem;
 struct ParticleData;
 
 /**
+* @struct PSOData
+* @brief This is pure data stored by the PSO class.
+*/
+struct PSOData {
+	int num_particles;
+	int epochs;
+	int best_index;
+	double g_fit;
+	double error_x, error_y;
+};
+
+/**
 * @class ParticleSwarmOptimizer
 * @brief This class implements particle swarm optimization.
 *
@@ -26,23 +38,19 @@ class ParticleSwarmOptimizer{
 
 public:
 
-	std::vector <Particle *> particles;
-	std::pair <double, double> g_best;
-
 	Problem *prob;
 	ParticleSwarmOptimizer(Problem* func);
 
+	std::pair<int, double> init_particles(ParticleData data);
+	std::pair<double, double> avg_coord_best_coord();
 	void avg_error();
 	void update_loop();
 	double percent_within();
-	std::pair<int, double> init_particles(ParticleData data);
-	std::pair<double, double> avg_coord_best_coord();
 
-	int num_particles;
-	int epochs;
-	int best_index;
-	double g_fit;
-	double error_x, error_y;
+	std::vector <Particle *> particles;
+	std::pair <double, double> g_best;
+
+	PSOData data;
 };
 
 #endif /* PSO_H */

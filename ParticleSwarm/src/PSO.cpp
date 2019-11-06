@@ -20,7 +20,7 @@ using json = nlohmann::json;
 
 ParticleSwarmOptimizer::ParticleSwarmOptimizer(Problem* func): prob(func) {
 
-	ParticleData data;
+	ParticleData particleData;
 
 	/*Load the parameters*/
 	json j;
@@ -64,28 +64,30 @@ ParticleSwarmOptimizer::ParticleSwarmOptimizer(Problem* func): prob(func) {
 		}
 	}
 
-	epochs = j["epochs"];
-	num_particles = j["num_particles"];
-	error_x = j["error_x"];
-	error_y = j["error_y"];
+	
+	data.epochs = j["epochs"];
+	data.num_particles = j["num_particles"];
+	data.error_x = j["error_x"];
+	data.error_y = j["error_y"];
+	data.g_fit = 0;
+	data.best_index = 0;
+
 	srand(j["seed"]);
 
-	data.inertia = j["inertia"];
-	data.cognition = j["cognition"];
-	data.social = j["social"];
-	data.max_velocity = j["max_velocity"];
-	data.inertia_decrease = j["inertia_decrease"];
+	particleData.inertia = j["inertia"];
+	particleData.cognition = j["cognition"];
+	particleData.social = j["social"];
+	particleData.max_velocity = j["max_velocity"];
+	particleData.inertia_decrease = j["inertia_decrease"];
 
-	g_fit = 0;
-	best_index = 0;
 
-	init_particles(data);
+	init_particles(particleData);
 
 }
 
 /*Initialize the particles*/
-pair<int, double> ParticleSwarmOptimizer::init_particles(ParticleData data){
-	for(int i=0; i<num_particles; i++){
+pair<int, double> ParticleSwarmOptimizer::init_particles(ParticleData particleData){
+	for(int i=0; i<data.num_particles; i++){
 		
 		double tmp = rand()%prob->width+1;
 		tmp *= rand()%2 == 1 ? 1 : -1;
@@ -93,8 +95,8 @@ pair<int, double> ParticleSwarmOptimizer::init_particles(ParticleData data){
 		double tmp2 = rand()%prob->height+1;
 		tmp2 *= rand()%2 == 1 ? 1 : -1;
 
-		data.position = std::make_pair(tmp, tmp2);
-		particles.push_back(new Particle(data));
+		particleData.position = std::make_pair(tmp, tmp2);
+		particles.push_back(new Particle(particleData));
 	}
 
 	return init_fit();
@@ -103,17 +105,17 @@ pair<int, double> ParticleSwarmOptimizer::init_particles(ParticleData data){
 /*Compute fitness values, set initial global best*/
 pair<int, double> ParticleSwarmOptimizer::init_fit(){
 	double max = 0;
-	for(int i=0; i<num_particles; i++){
+	for(int i=0; i<data.num_particles; i++){
 		particles[i]->data.fitness = prob->Q(particles[i]->data.position);
 
 		if(particles[i]->data.fitness > max){
 			max = particles[i]->data.fitness;
 			g_best = particles[i]->data.position;
-			g_fit = max;
-			best_index = i;
+			data.g_fit = max;
+			data.best_index = i;
 		}
 	}
-	return make_pair(best_index, max);
+	return make_pair(data.best_index, max);
 }
 
 /*Check and see if we need to update p_best*/
@@ -126,7 +128,7 @@ void ParticleSwarmOptimizer::p_best_check(Particle *p){
 void ParticleSwarmOptimizer::g_best_check(int &index, Particle *p){
 	if(prob->Q(p->data.position) > prob->Q(g_best)){
 		g_best = p->data.position;
-		best_index = index;
+		data.best_index = index;
 	}
 }
 
@@ -134,13 +136,13 @@ void ParticleSwarmOptimizer::g_best_check(int &index, Particle *p){
 void ParticleSwarmOptimizer::avg_error(){
 	double err_x = 0, err_y = 0;
 
-	for (int i = 0; i < num_particles; i++) {
+	for (int i = 0; i < data.num_particles; i++) {
 		err_x += pow(particles[i]->data.position.first - g_best.first, 2);
 		err_y += pow(particles[i]->data.position.second - g_best.second, 2);
 	}
 
-	error_x = sqrt((1.0/(2*num_particles))* err_x);
-	error_y = sqrt((1.0/(2*num_particles))* err_y);
+	data.error_x = sqrt((1.0/(2*data.num_particles))* err_x);
+	data.error_y = sqrt((1.0/(2*data.num_particles))* err_y);
 }
 
 /*diff of avg vs. best coords*/
@@ -148,13 +150,13 @@ pair <double, double> ParticleSwarmOptimizer::avg_coord_best_coord(){
 
 	double x = 0, y = 0;
 
-	for(int i=0; i<num_particles; i++){
+	for(int i=0; i<data.num_particles; i++){
 		x += particles[i]->data.position.first;
 		y += particles[i]->data.position.second;
 	}
 
-	x/= num_particles;
-	y/= num_particles;
+	x/= data.num_particles;
+	y/= data.num_particles;
 
 	return make_pair(x - g_best.first, y - g_best.second);
 }
@@ -163,7 +165,7 @@ pair <double, double> ParticleSwarmOptimizer::avg_coord_best_coord(){
 /*Also update personal bests and global best*/
 void ParticleSwarmOptimizer::update_loop(){
 		
-	for(int i=0; i<num_particles; i++){
+	for(int i=0; i<data.num_particles; i++){
 		particles[i]->velocity_update(g_best);
 		particles[i]->position_update();
 		p_best_check(particles[i]);
@@ -175,12 +177,12 @@ double ParticleSwarmOptimizer::percent_within() {
 
 	int count = 0;
 
-	for (int i = 0; i < num_particles; i++) {
+	for (int i = 0; i < data.num_particles; i++) {
 		double result = prob->pdist(particles[i]->data.position);
 
 		if (result < 1)
 			count++;
 	}
 
-	return count / (double)num_particles;
+	return count / (double)data.num_particles;
 }
