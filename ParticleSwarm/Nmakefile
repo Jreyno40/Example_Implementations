@@ -1,0 +1,29 @@
+# Build File for PSO project
+CFLAGS = /EHsc
+
+SRC_DIR = src
+
+INC = include
+
+all: ExampleSwarm.exe
+
+#.cpp.obj:
+#	$(CXX) $(CFLAGS) $(SRC_DIR)/*.cpp
+
+obj/PSO.obj: $(SRC_DIR)/PSO.cpp
+	$(CXX) $(CFLAGS) /I $(INC) -c /Fo:obj/PSO.obj $(SRC_DIR)/PSO.cpp
+
+obj/Problem.obj: $(SRC_DIR)/Problem.cpp
+	$(CXX) $(CFLAGS) /I $(INC) -c /Fo:obj/Problem.obj $(SRC_DIR)/Problem.cpp
+
+obj/Particle.obj: $(SRC_DIR)/Particle.cpp
+	$(CXX) $(CFLAGS) /I $(INC) -c /Fo:obj/Particle.obj $(SRC_DIR)/Particle.cpp
+
+obj/ExampleSwarm.obj: $(SRC_DIR)/ExampleSwarm.cpp
+	$(CXX) $(CFLAGS) /I $(INC) -c  /Fo:obj/ExampleSwarm.obj $(SRC_DIR)/ExampleSwarm.cpp
+
+ExampleSwarm.exe: obj/PSO.obj obj/Problem.obj obj/ExampleSwarm.obj obj/Particle.obj
+	$(CXX) $(CFLAGS) /I $(INC) obj/ExampleSwarm.obj obj/PSO.obj obj/Problem.obj obj/Particle.obj
+
+clean:
+	del obj\\*.obj *.csv ExampleSwarm.exe 2>NUL

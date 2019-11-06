@@ -1,0 +1,14 @@
+{
+    "cognition": 1.0,
+    "epochs": 10000,
+    "error_x": 9999,
+    "error_y": 9999,
+    "inertia": 1.0,
+    "inertia_decrease": 0.05,
+    "max_velocity": 10.0,
+    "num_particles": 100,
+    "seed": 50,
+    "social": 1.0,
+    "w_height": 50,
+    "w_width": 50
+}
