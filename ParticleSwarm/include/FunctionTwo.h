@@ -1,11 +1,8 @@
 #ifndef FUNCTIONTWO_H
 #define FUNCTIONTWO_H
 #include "Problem.h"
-#if defined _WIN64 || defined _WIN32
-#include "minmax.h"
-#endif
 #include <cmath>
-
+#include <algorithm>
 /**
 * @class FunctionTwo
 * @brief This inherits from the Problem interface to define a sample problem.
