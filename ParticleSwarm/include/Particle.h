@@ -44,10 +44,9 @@ namespace PSO {
 	*/
 	class Particle {
 
-		ParticleData data;
-
 	public:
 
+		ParticleData data;
 		Particle(ParticleData data);
 
 	protected:
