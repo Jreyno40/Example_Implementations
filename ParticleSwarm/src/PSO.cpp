@@ -6,10 +6,10 @@
 #include <fstream>
 #include <vector>
 #include <string>
-#include "JSONWrapper.h"
-#include "Particle.h"
-#include "PSO.h"
-#include "Problem.h"
+#include "JSONWrapper.hpp"
+#include "Particle.hpp"
+#include "PSO.hpp"
+#include "Problem.hpp"
 
 using namespace std;
 

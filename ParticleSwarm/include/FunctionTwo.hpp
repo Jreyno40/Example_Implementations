@@ -1,6 +1,6 @@
 #ifndef FUNCTIONTWO_H
 #define FUNCTIONTWO_H
-#include "Problem.h"
+#include "Problem.hpp"
 #include <cmath>
 #include <algorithm>
 

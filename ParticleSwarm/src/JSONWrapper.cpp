@@ -1,4 +1,4 @@
-#include "JSONWrapper.h"
+#include "JSONWrapper.hpp"
 #include <fstream>
 #include <iostream>
 

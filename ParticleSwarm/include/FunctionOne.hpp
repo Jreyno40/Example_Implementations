@@ -1,6 +1,6 @@
 #ifndef FUNCTIONONE_H
 #define FUNCTIONONE_H
-#include "Problem.h"
+#include "Problem.hpp"
 
 namespace PSO {
 

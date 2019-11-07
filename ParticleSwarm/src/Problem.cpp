@@ -1,5 +1,5 @@
-#include "JSONWrapper.h"
-#include "Problem.h"
+#include "JSONWrapper.hpp"
+#include "Problem.hpp"
 #include <utility>
 #include <fstream>
 #include <iostream>

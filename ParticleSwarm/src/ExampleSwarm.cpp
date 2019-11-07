@@ -1,11 +1,11 @@
 #include <fstream>
 #include <iostream>
 #include <cstdio>
-#include "PSO.h"
-#include "Particle.h"
-#include "Problem.h"
-#include "FunctionOne.h"
-#include "FunctionTwo.h"
+#include "PSO.hpp"
+#include "Particle.hpp"
+#include "Problem.hpp"
+#include "FunctionOne.hpp"
+#include "FunctionTwo.hpp"
 
 using namespace std;
 using namespace PSO;
