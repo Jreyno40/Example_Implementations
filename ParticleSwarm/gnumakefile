@@ -14,4 +14,4 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	g++ -std=c++11 $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $< -I $(INC_DIR)
 
 clean:
-	rm obj/* ExampleSwarm *.csv
+	rm -f obj/* ExampleSwarm *.csv
