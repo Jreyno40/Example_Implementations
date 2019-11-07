@@ -17,17 +17,35 @@ class Problem {
 
 public:
 	
+	/**
+	* The constructor loads the width and height from params.json.
+	*/
 	Problem();
 
-	/*Max distance*/
+	/**
+	* This function returns the maximum distance of width and height.
+	* @return maxDistance The maximum distance.
+	*/
 	virtual double mdist();
 
-	/*p distance (from lab writeup)*/
+	/**
+	* This function returns the pdist.
+	* @return pDistance Arbitrary distance for a problem to be optimized.
+	*/
 	virtual double pdist(std::pair<double, double> &p);
 
-	/*n distance (from lab writeup)*/
+	/**
+	* This function returns the ndist.
+	* @return nDistance Arbitrary distance for a problem to be optimized.
+	*/
 	virtual double ndist(std::pair<double, double> &p);
 
+	/**
+	* The Q function represents the total function for optimization. It can 
+	* incorporate other elements. However, this Q function alone will be called
+	* from the Particle Swarm Optimizer class.
+	* @return fitness Fitness value for the function to be optimized.
+	*/
 	virtual double Q(std::pair<double, double> &p) = 0;
 
 	friend class ParticleSwarmOptimizer;
