@@ -12,6 +12,15 @@ namespace PSO {
 	*/
 	class FunctionTwo : public Problem {
 
+		/**
+		* This function returns the ndist. It is unique to FunctionTwo.
+		* @return nDistance Arbitrary distance for a problem to be optimized.
+		*/
+		double ndist(std::pair<double, double> &p) {
+			return sqrt(pow(p.first + 20, 2) + pow(p.second + 7, 2));
+		}
+
+
 	public:
 
 		double Q(std::pair<double, double> &p) {

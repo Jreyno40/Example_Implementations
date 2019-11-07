@@ -51,8 +51,4 @@ namespace PSO {
 		return sqrt(pow(p.first - 20, 2) + pow(p.second - 7, 2));
 	}
 
-	double Problem::ndist(std::pair<double, double> &p) {
-		return sqrt(pow(p.first + 20, 2) + pow(p.second + 7, 2));
-	}
-
 }

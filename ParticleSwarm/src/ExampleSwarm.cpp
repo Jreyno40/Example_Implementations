@@ -20,10 +20,6 @@ int main(int argc, char **argv) {
 	FunctionTwo* prob2 = new FunctionTwo;
 	ParticleSwarmOptimizer PSO(prob2);
 
-	/*Init particles*/
-	//pair<int, double> result = PSO.init_particles();
-	//printf("Starting best index & fit & position:%d %f x: %f y: %f\n", result.first, result.second, PSO.particles[result.first]->data.position.first, PSO.particles[result.first]->data.position.second);
-
 	/*scatter plot of particles + maximum*/
 	/*x: epoch y: diff avg vs global*/
 	/*x: epoch y: percent converged*/

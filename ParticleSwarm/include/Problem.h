@@ -36,12 +36,6 @@ namespace PSO {
 		virtual double pdist(std::pair<double, double> &p);
 
 		/**
-		* This function returns the ndist.
-		* @return nDistance Arbitrary distance for a problem to be optimized.
-		*/
-		virtual double ndist(std::pair<double, double> &p);
-
-		/**
 		* The Q function represents the total function for optimization. It can
 		* incorporate other elements. However, this Q function alone will be called
 		* from the Particle Swarm Optimizer class.
