@@ -4,13 +4,14 @@
 #include <cmath>
 #include <iostream>
 #include <fstream>
-#include "json.hpp"
+#include <vector>
+#include <string>
+#include "JSONWrapper.h"
 #include "Particle.h"
 #include "PSO.h"
 #include "Problem.h"
 
 using namespace std;
-using json = nlohmann::json;
 
 namespace PSO {
 
@@ -18,64 +19,33 @@ namespace PSO {
 
 		ParticleData particleData;
 
-		/*Load the parameters*/
-		json j;
+		JSONWrapper parameters("params.json");
 
-		{
-			ifstream fin("params.json");
-			if (fin.fail()) {
-				cerr << "Error: file \"params.json\" does not exist." << endl;
-				cerr.flush();
-				exit(1);
-			}
-
-			try {
-				j = json::parse(fin);
-			}
-			catch (json::exception& e) {
-				cerr << e.what() << endl;
-				cerr.flush();
-				exit(1);
-			}
-
-			fin.close();
-		}
+		vector<string> varList = { "epochs", "num_particles", "error_x",
+			"error_y", "seed", "inertia", "cognition", "social",
+			"max_velocity", "inertia_decrease" };
 
 		/*Error check for existence*/
-		{
-			if (!j["epochs"].is_number() ||
-				!j["num_particles"].is_number() ||
-				!j["error_x"].is_number() ||
-				!j["error_y"].is_number() ||
-				!j["seed"].is_number() ||
-				!j["inertia"].is_number() ||
-				!j["cognition"].is_number() ||
-				!j["social"].is_number() ||
-				!j["max_velocity"].is_number() ||
-				!j["inertia_decrease"].is_number())
-			{
-				cerr << "A required parameter is missing." << endl;
-				cerr.flush();
-				exit(1);
-			}
+		if (!parameters.CheckExistence(varList)) {
+			cerr << "A required parameter is missing." << endl;
+			cerr.flush();
+			exit(1);
 		}
 
-
-		data.epochs = j["epochs"];
-		data.num_particles = j["num_particles"];
-		data.error_x = j["error_x"];
-		data.error_y = j["error_y"];
+		data.epochs = parameters.data["epochs"];
+		data.num_particles = parameters.data["num_particles"];
+		data.error_x = parameters.data["error_x"];
+		data.error_y = parameters.data["error_y"];
 		data.g_fit = 0;
 		data.best_index = 0;
 
-		srand(j["seed"]);
+		srand(parameters.data["seed"]);
 
-		particleData.inertia = j["inertia"];
-		particleData.cognition = j["cognition"];
-		particleData.social = j["social"];
-		particleData.max_velocity = j["max_velocity"];
-		particleData.inertia_decrease = j["inertia_decrease"];
-
+		particleData.inertia = parameters.data["inertia"];
+		particleData.cognition = parameters.data["cognition"];
+		particleData.social = parameters.data["social"];
+		particleData.max_velocity = parameters.data["max_velocity"];
+		particleData.inertia_decrease = parameters.data["inertia_decrease"];
 
 		init_particles(particleData);
 

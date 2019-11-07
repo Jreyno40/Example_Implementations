@@ -1,10 +1,7 @@
 #include "Particle.h"
-#include "json.hpp"
 #include <utility>
 #include <fstream>
 #include <iostream>
-
-using json = nlohmann::json;
 
 namespace PSO {
 

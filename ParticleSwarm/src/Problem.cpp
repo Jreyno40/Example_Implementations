@@ -1,46 +1,28 @@
-#include "json.hpp"
+#include "JSONWrapper.h"
 #include "Problem.h"
 #include <utility>
 #include <fstream>
 #include <iostream>
 
-using json = nlohmann::json;
+using namespace std;
 
 namespace PSO {
 
 	Problem::Problem() {
-		json j;
 
-		{
-			std::ifstream fin("params.json");
-			if (fin.fail()) {
-				std::cerr << "Error: file \"params.json\" does not exist." << std::endl;
-				std::cerr.flush();
-				exit(1);
-			}
+		JSONWrapper parameters("params.json");
 
-			try {
-				j = json::parse(fin);
-			}
-			catch (json::exception& e) {
-				std::cerr << e.what() << std::endl;
-				std::cerr.flush();
-				exit(1);
-			}
+		vector<string> varList = { "w_width", "w_height" };
 
-			fin.close();
-		}
-
-		if (!j["w_width"].is_number() ||
-			!j["w_height"].is_number())
+		if (!parameters.CheckExistence(varList))
 		{
 			std::cerr << "A required parameter is missing." << std::endl;
 			std::cerr.flush();
 			exit(1);
 		}
 
-		width = j["w_width"];
-		height = j["w_height"];
+		width = parameters.data["w_width"];
+		height = parameters.data["w_height"];
 	}
 
 	double Problem::mdist() {
