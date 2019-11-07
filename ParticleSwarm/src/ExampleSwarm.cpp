@@ -7,10 +7,11 @@
 #include "FunctionOne.h"
 #include "FunctionTwo.h"
 
+using namespace std;
+using namespace PSO;
+
 constexpr auto POSITIONS = 1;
 constexpr auto DEBUG = 0;
-
-using namespace std;
 
 /*Simulation!*/
 int main(int argc, char **argv) {
@@ -30,7 +31,7 @@ int main(int argc, char **argv) {
 	ofstream fout2("percent.csv");
 
 	int epoch = 0;
-	
+
 	/*Either the error converges or we complete all epochs*/
 	while ((PSO.data.error_x > 0.01 && PSO.data.error_y > 0.01) && (epoch < PSO.data.epochs)) {
 
@@ -44,7 +45,7 @@ int main(int argc, char **argv) {
 			printf("Error x: %f y: %f\n", PSO.data.error_x, PSO.data.error_y);
 
 		pair <double, double> result = PSO.avg_coord_best_coord();
-		
+
 		fout1 << epoch << ", " << result.first << ", " << result.second << "\n";
 		fout2 << epoch << ", " << PSO.percent_within() << "\n";
 
