@@ -36,7 +36,7 @@ namespace PSO {
 		data.num_particles = parameters.data["num_particles"];
 		data.error_x = parameters.data["error_x"];
 		data.error_y = parameters.data["error_y"];
-		data.g_fit = 0;
+		//data.g_fit = 0;
 		data.best_index = 0;
 
 		srand(parameters.data["seed"]);
@@ -77,7 +77,7 @@ namespace PSO {
 			if (particles[i]->data.fitness > max) {
 				max = particles[i]->data.fitness;
 				g_best = particles[i]->data.position;
-				data.g_fit = max;
+				//data.g_fit = max;
 				data.best_index = i;
 			}
 		}

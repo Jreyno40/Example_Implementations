@@ -14,10 +14,17 @@ namespace PSO {
 	* @brief This is pure data stored by the PSO class.
 	*/
 	struct PSOData {
+		
+		// Number of particles in the swarm
 		int num_particles;
+		
+		// Number of epochs to simulate
 		int epochs;
+		
+		// The index containing the current best particle
 		int best_index;
-		double g_fit;
+		
+		// Average error in the x and y directions compared to global best
 		double error_x, error_y;
 	};
 
@@ -72,8 +79,7 @@ namespace PSO {
 		std::pair<int, double> init_particles(ParticleData data);
 
 		/**
-		* 
-		*
+		* Difference between the average coordinate and the best coordinate
 		*/
 		std::pair<double, double> avg_coord_best_coord();
 		
