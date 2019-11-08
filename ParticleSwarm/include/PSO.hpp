@@ -34,24 +34,73 @@ namespace PSO {
 	*/
 	class ParticleSwarmOptimizer {
 
+		/**
+		 * Initializes the fitness values of all particles.
+		 */
 		std::pair<int, double> init_fit();
+
+		/**
+		* Checks particle p to see if current position is its all-time best.
+		* @param p particle to check for relative fitness
+		*/
 		void p_best_check(Particle *p);
+
+		/**
+		* Checks particle p to see if it is the global best position.
+		* @param index index of passed in particle
+		* @param p particle to check for global success
+		*/
 		void g_best_check(int &index, Particle *p);
 
 	public:
 
+		//Pointer to a problem instance
 		Problem *prob;
+
+		/**
+		* Constructor for the PSO engine. Loads JSON data using the JSONWrapper
+		* class, initializes particles & fitness values, and copies a problem 
+		* instantiation to the internal pointer. Seeds RNG.
+		* @param func Any implementation of the Problem interface
+		*/
 		ParticleSwarmOptimizer(Problem* func);
 
+		/**
+		* Initializes particle positions with RNG and calls init_fit.
+		* @param data Data containing metrics e.g. inertia, cognition, velocity
+		*/
 		std::pair<int, double> init_particles(ParticleData data);
+
+		/**
+		* 
+		*
+		*/
 		std::pair<double, double> avg_coord_best_coord();
+		
+		/**
+		* Computes the average error across all particles
+		*/
 		void avg_error();
+		
+		/**
+		* Updates the actual particle swarm simulation. This function performs
+		* velocity and position updates as well as checking for global and 
+		* individual best fitnesses.
+		*/
 		void update_loop();
+		
+		/**
+		* Computes the percentage of particles within a certain fitness.
+		*/
 		double percent_within();
 
+		// Stores all particles involved in the simulation
 		std::vector <Particle *> particles;
+		
+		// Used to record x, y coordinates of global best position
 		std::pair <double, double> g_best;
 
+		// Instance of the data struct defined above
 		PSOData data;
 	};
 

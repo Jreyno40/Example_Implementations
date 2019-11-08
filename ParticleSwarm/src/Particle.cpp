@@ -6,10 +6,8 @@
 
 namespace PSO {
 
-	constexpr auto GRAD = 0;
-
-	Particle::Particle(ParticleData data) : data(data) {
-		data.bestPosition = data.position;
+	Particle::Particle(ParticleData passedData) : data(passedData) {
+		data.bestPosition = passedData.position;
 		data.velocity = std::make_pair(0, 0);
 		data.fitness = 0;
 	}
@@ -40,9 +38,7 @@ namespace PSO {
 
 		}
 
-		if (GRAD) {
-			data.inertia -= data.inertia * data.inertia_decrease;
-		}
+		data.inertia -= data.inertia * data.inertia_decrease;
 	}
 
 }

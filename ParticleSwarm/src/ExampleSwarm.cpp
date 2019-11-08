@@ -39,8 +39,8 @@ int main(int argc, char **argv) {
 	fout2 << "epoch," << "percent" << endl;
 	fout3 << "epoch," << "x," << "y" << endl;
 
-	int epoch = 0;
 	/*Either the error converges or we complete all epochs*/
+	int epoch = 0;
 	while ((PSO.data.error_x > 0.01 && PSO.data.error_y > 0.01) && (epoch < PSO.data.epochs)) {
 
 		/*Update positions, velocities, bestPosition and g_best*/

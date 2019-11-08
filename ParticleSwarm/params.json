@@ -4,7 +4,7 @@
     "error_x": 9999,
     "error_y": 9999,
     "inertia": 1.0,
-    "inertia_decrease": 0.05,
+    "inertia_decrease": 0,
     "max_velocity": 10.0,
     "num_particles": 100,
     "seed": 50,

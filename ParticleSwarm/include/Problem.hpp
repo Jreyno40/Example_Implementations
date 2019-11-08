@@ -3,6 +3,7 @@
 #include <utility>
 
 namespace PSO {
+
 	/**
 	* @class Problem
 	* @brief This is the base abstract class for defining Problems to be optimized.
@@ -14,6 +15,7 @@ namespace PSO {
 	*/
 	class Problem {
 
+		// Width and height specify the range of x and y values respectively
 		int width, height;
 
 	public:
@@ -33,7 +35,7 @@ namespace PSO {
 		* This function returns the pdist.
 		* @return pDistance Arbitrary distance for a problem to be optimized.
 		*/
-		virtual double pdist(std::pair<double, double> &p);
+		virtual double pdist(const std::pair<double, double> &p);
 
 		/**
 		* The Q function represents the total function for optimization. It can
@@ -41,7 +43,7 @@ namespace PSO {
 		* from the Particle Swarm Optimizer class.
 		* @return fitness Fitness value for the function to be optimized.
 		*/
-		virtual double Q(std::pair<double, double> &p) = 0;
+		virtual double Q(const std::pair<double, double> &p) = 0;
 
 		friend class ParticleSwarmOptimizer;
 	};

@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 
-JSONWrapper::JSONWrapper(std::string filename) {
+JSONWrapper::JSONWrapper(const std::string& filename) {
 
 	std::ifstream fin(filename);
 
@@ -24,7 +24,7 @@ JSONWrapper::JSONWrapper(std::string filename) {
 	fin.close();
 }
 
-bool JSONWrapper::CheckExistence(std::vector<std::string>& parameters) {
+bool JSONWrapper::CheckExistence(const std::vector<std::string>& parameters) {
 
 	for (auto it = parameters.begin(); it != parameters.end(); it++) {
 		if (!data[*it].is_number())

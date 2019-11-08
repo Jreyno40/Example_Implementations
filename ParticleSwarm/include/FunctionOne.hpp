@@ -12,7 +12,7 @@ namespace PSO {
 
 	public:
 
-		double Q(std::pair<double, double> &p) {
+		double Q(const std::pair<double, double> &p) {
 			return 100 * (1 - (pdist(p) / mdist()));
 		}
 

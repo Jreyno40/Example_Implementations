@@ -29,7 +29,7 @@ namespace PSO {
 		return sqrt(pow(width * 2, 2) + pow(height * 2, 2)) / 2.0;
 	}
 
-	double Problem::pdist(std::pair<double, double> &p) {
+	double Problem::pdist(const std::pair<double, double> &p) {
 		return sqrt(pow(p.first - 20, 2) + pow(p.second - 7, 2));
 	}
 

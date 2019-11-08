@@ -3,6 +3,7 @@
 #include<utility>
 
 namespace PSO {
+
 	/**
 	* @struct ParticleData
 	* @brief Data describing individual particle behavior.
@@ -12,20 +13,31 @@ namespace PSO {
 	*/
 	struct ParticleData {
 
-		/**
-		* @param fitness The fitness value defines success for a given candidate
-		* solution. This parameter may be useful for external classes, thus public.
-		*/
+		//
 		double fitness;
 
+		//
 		double inertia;
+		
+		//
 		double cognition;
+		
+		//
 		double social;
+		
+		//
 		double max_velocity;
+		
+		//
 		double inertia_decrease;
 
+		//
 		std::pair<double, double> position;
+		
+		//
 		std::pair<double, double> velocity;
+		
+		//
 		std::pair<double, double> bestPosition;
 
 	};
@@ -46,12 +58,27 @@ namespace PSO {
 
 	public:
 
+		//
 		ParticleData data;
+		
+		/**
+		*
+		*
+		*/
 		Particle(ParticleData data);
 
 	protected:
 
+		/**
+		*
+		*
+		*/
 		void position_update();
+		
+		/**
+		*
+		*
+		*/
 		void velocity_update(std::pair <double, double> g_best);
 
 		friend class ParticleSwarmOptimizer;
