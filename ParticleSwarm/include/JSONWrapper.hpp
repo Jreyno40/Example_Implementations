@@ -17,7 +17,7 @@ class JSONWrapper {
 
 public:
 
-	//The json object filled by the JSONWrapper constructor
+	// The json object filled by the JSONWrapper constructor
 	json data;
 
 	/**

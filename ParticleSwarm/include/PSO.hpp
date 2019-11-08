@@ -61,7 +61,7 @@ namespace PSO {
 
 	public:
 
-		//Pointer to a problem instance
+		// Pointer to a problem instance
 		Problem *prob;
 
 		/**
