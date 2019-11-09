@@ -15,6 +15,7 @@ using namespace std;
 
 namespace PSO {
 
+	/*Load particle data and parameters from json file. Set problem pointer.*/
 	ParticleSwarmOptimizer::ParticleSwarmOptimizer(Problem* func) : prob(func) {
 
 		ParticleData particleData;
@@ -36,7 +37,6 @@ namespace PSO {
 		data.num_particles = parameters.data["num_particles"];
 		data.error_x = parameters.data["error_x"];
 		data.error_y = parameters.data["error_y"];
-		//data.g_fit = 0;
 		data.best_index = 0;
 
 		srand(parameters.data["seed"]);
@@ -77,7 +77,6 @@ namespace PSO {
 			if (particles[i]->data.fitness > max) {
 				max = particles[i]->data.fitness;
 				g_best = particles[i]->data.position;
-				//data.g_fit = max;
 				data.best_index = i;
 			}
 		}
@@ -138,7 +137,8 @@ namespace PSO {
 			g_best_check(i, particles[i]);
 		}
 	}
-
+	
+	/*Percentage of particles within a certain range*/
 	double ParticleSwarmOptimizer::percent_within() {
 
 		int count = 0;

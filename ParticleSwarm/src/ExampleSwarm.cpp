@@ -19,6 +19,7 @@ int main(int argc, char **argv) {
 	FunctionTwo* prob2 = new FunctionTwo;
 	ParticleSwarmOptimizer PSO(prob2);
 
+	/*Output particle beginning positions*/
 	if (OUTPUT) {
 		ofstream fout("start_particles.csv");
 		fout << "x," << "y" << endl;
@@ -28,9 +29,6 @@ int main(int argc, char **argv) {
 		fout.close();
 	}
 
-	/*scatter plot of particles + maximum*/
-	/*x: epoch y: diff avg vs global*/
-	/*x: epoch y: percent converged*/
 	ofstream fout1("diff.csv");
 	ofstream fout2("percent.csv");
 	ofstream fout3("errors.csv");
@@ -49,14 +47,13 @@ int main(int argc, char **argv) {
 		/*Compute average error*/
 		PSO.avg_error();
 
-		if (OUTPUT)
-			fout3 << epoch << ", " << PSO.data.error_x << ", " << PSO.data.error_y << endl;
-
+		/*Difference between average position and best position*/
 		pair <double, double> result = PSO.avg_coord_best_coord();
 
 		if (OUTPUT)
 			fout1 << epoch << ", " << result.first << ", " << result.second << "\n";
 			fout2 << epoch << ", " << PSO.percent_within() << "\n";
+			fout3 << epoch << ", " << PSO.data.error_x << ", " << PSO.data.error_y << endl;
 
 		epoch++;
 	}
@@ -65,7 +62,7 @@ int main(int argc, char **argv) {
 	fout2.close();
 	fout3.close();
 
-	/*Output particle positions*/
+	/*Output particle ending positions*/
 	if (OUTPUT) {
 		ofstream fout4("end_particles.csv");
 		fout4 << "x," << "y" << endl;
@@ -75,7 +72,9 @@ int main(int argc, char **argv) {
 		fout4.close();
 	}
 
-	printf("Error x: %f y: %f\nBest index fitness: %d %f\nBest Position: %f %f\n", PSO.data.error_x, PSO.data.error_y, PSO.data.best_index, PSO.prob->Q(PSO.g_best), PSO.g_best.first, PSO.g_best.second);
+	printf("Error x: %f y: %f\nBest index fitness: %d %f\nBest Position: %f %f\n", 
+		PSO.data.error_x, PSO.data.error_y, PSO.data.best_index, PSO.prob->Q(PSO.g_best), 
+		PSO.g_best.first, PSO.g_best.second);
 
 	return 0;
 }

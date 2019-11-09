@@ -42,6 +42,12 @@ namespace PSO {
 	class ParticleSwarmOptimizer {
 
 		/**
+		* Initializes particle positions with RNG and calls init_fit.
+		* @param data Data containing metrics e.g. inertia, cognition, velocity
+		*/
+		std::pair<int, double> init_particles(ParticleData data);
+
+		/**
 		 * Initializes the fitness values of all particles.
 		 */
 		std::pair<int, double> init_fit();
@@ -71,12 +77,6 @@ namespace PSO {
 		* @param func Any implementation of the Problem interface
 		*/
 		ParticleSwarmOptimizer(Problem* func);
-
-		/**
-		* Initializes particle positions with RNG and calls init_fit.
-		* @param data Data containing metrics e.g. inertia, cognition, velocity
-		*/
-		std::pair<int, double> init_particles(ParticleData data);
 
 		/**
 		* Difference between the average coordinate and the best coordinate
